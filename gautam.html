@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gautam Jha | Law & Data Science Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Playfair+Display:wght@700;800&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #0f172a;
+    --secondary: #1e293b;
+    --accent: #00d9ff;
+    --accent-warm: #ff6b9d;
+    --text-light: #e2e8f0;
+    --text-muted: #94a3b8;
+    --glass-bg: rgba(30, 41, 59, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --bg-start: #0f172a;
+    --bg-end: #1a1f3a;
+    --blob-opacity: 0.3;
+}
+
+body.light-mode {
+    --primary: #ffffff;
+    --secondary: #f8fafc;
+    --accent: #0077cc;
+    --accent-warm: #e91e63;
+    --text-light: #1e293b;
+    --text-muted: #64748b;
+    --glass-bg: rgba(240, 246, 255, 0.9);
+    --glass-border: rgba(0, 0, 0, 0.1);
+    --bg-start: #f8fafc;
+    --bg-end: #e8eef5;
+    --blob-opacity: 0.15;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
+    color: var(--text-light);
+    font-family: 'Space Grotesk', sans-serif;
+    line-height: 1.8;
+    overflow-x: hidden;
+    position: relative;
+    transition: all 0.5s ease;
+}
+
+/* ANIMATED BACKGROUND */
+.bg-animation {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: var(--blob-opacity);
+}
+
+.floating-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.3;
+    animation: float 20s infinite ease-in-out;
+}
+
+.blob-1 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #00d9ff, transparent);
+    top: -10%;
+    left: -5%;
+    animation-duration: 25s;
+}
+
+.blob-2 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, #ff6b9d, transparent);
+    top: 40%;
+    right: -10%;
+    animation-duration: 20s;
+    animation-delay: 2s;
+}
+
+.blob-3 {
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, #00d9ff, transparent);
+    bottom: 10%;
+    left: 20%;
+    animation-duration: 30s;
+    animation-delay: 4s;
+}
+
+body.light-mode .blob-1,
+body.light-mode .blob-2,
+body.light-mode .blob-3 {
+    opacity: 0.2;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(30px, -30px) scale(1.1); }
+    50% { transform: translate(-20px, 20px) scale(0.95); }
+    75% { transform: translate(40px, 30px) scale(1.05); }
+}
+
+/* THEME TOGGLE */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.theme-toggle:hover {
+    background: rgba(0, 217, 255, 0.1);
+    border-color: var(--accent);
+}
+
+.theme-toggle span {
+    font-size: 20px;
+    transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover span {
+    transform: rotate(20deg);
+}
+
+/* NAVBAR - Layer 1 */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 8%;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    animation: slideDown 0.8s ease-out;
+    transition: all 0.3s ease;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+nav h1 {
+    font-size: 24px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: -1px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--text-light);
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-warm));
+    transition: width 0.3s ease;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+nav ul li a:hover {
+    color: var(--accent);
+}
+
+/* HERO SECTION - Layer 2 */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 120px 8%;
+    min-height: 100vh;
+    flex-wrap: wrap;
+    gap: 60px;
+    position: relative;
+    z-index: 10;
+}
+
+.hero-text {
+    max-width: 600px;
+    animation: fadeInUp 1s ease-out;
+}
+
+.hero-text h2 {
+    font-size: 72px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-warm), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: textShimmer 3s ease-in-out infinite;
+}
+
+@keyframes textShimmer {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.9; }
+}
+
+.hero-text h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.hero-text p {
+    font-size: 16px;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    line-height: 1.9;
+}
+
+.btn-primary {
+    padding: 15px 40px;
+    background: linear-gradient(135deg, var(--accent), #00b8d4);
+    color: #0f172a;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.3s ease;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px rgba(0, 217, 255, 0.3);
+}
+
+.hero-image {
+    position: relative;
+    animation: fadeInRight 1s ease-out 0.2s backwards;
+}
+
+.hero-image img {
+    width: 350px;
+    height: 350px;
+    border-radius: 20px;
+    object-fit: cover;
+    border: 2px solid var(--glass-border);
+    box-shadow: 0 30px 60px rgba(0, 217, 255, 0.2);
+    transition: all 0.4s ease;
+}
+
+.hero-image:hover img {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 40px 80px rgba(0, 217, 255, 0.4);
+}
+
+.glow-circle {
+    position: absolute;
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(255, 107, 157, 0.1));
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse 4s ease-in-out infinite;
+    z-index: -1;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.1); }
+}
+
+@keyframes fadeInUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeInRight {
+    from { transform: translateX(50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* SECTION STYLING */
+section {
+    padding: 100px 8%;
+    position: relative;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+section:nth-child(even) {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.section-title {
+    font-size: 52px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+    margin-bottom: 50px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-warm));
+    border-radius: 2px;
+}
+
+/* ABOUT SECTION - Layer 3 */
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.about-text p {
+    font-size: 16px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    line-height: 1.9;
+}
+
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.stat-card {
+    padding: 30px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.stat-card:hover {
+    background: rgba(0, 217, 255, 0.05);
+    border-color: var(--accent);
+    transform: translateY(-10px);
+}
+
+.stat-number {
+    font-size: 36px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-top: 10px;
+}
+
+/* EDUCATION - Layer 4 */
+.education-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.edu-card {
+    padding: 40px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.edu-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-warm));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.edu-card:hover::before {
+    transform: scaleX(1);
+}
+
+.edu-card:hover {
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(255, 107, 157, 0.05));
+    border-color: var(--accent);
+    transform: translateY(-15px);
+}
+
+.edu-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+}
+
+.edu-card .degree {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+}
+
+.edu-card .year {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent-warm);
+    font-weight: 600;
+}
+
+/* SKILLS - Layer 5 */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.skill-card {
+    padding: 30px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.skill-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(0, 217, 255, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 12px;
+    pointer-events: none;
+}
+
+.skill-card:hover::after {
+    opacity: 1;
+}
+
+.skill-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    border-color: var(--accent);
+}
+
+.skill-icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+    display: inline-block;
+    animation: bounceIn 0.8s ease-out;
+}
+
+.skill-card h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* COURSES SECTION - Layer 6 */
+.courses-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.course-filter {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.filter-btn {
+    padding: 10px 25px;
+    background: var(--glass-bg);
+    border: 2px solid var(--glass-border);
+    color: var(--text-light);
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+    color: #0f172a;
+    border-color: transparent;
+}
+
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+}
+
+.course-card {
+    padding: 25px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.course-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 217, 255, 0.1), transparent);
+    opacity: 0;
+    transition: all 0.6s ease;
+}
+
+.course-card:hover::before {
+    opacity: 1;
+    top: -20%;
+    left: -20%;
+}
+
+.course-card:hover {
+    transform: translateY(-12px);
+    border-color: var(--accent);
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(255, 107, 157, 0.04));
+    box-shadow: 0 20px 40px rgba(0, 217, 255, 0.15);
+}
+
+.course-code {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+    margin-bottom: 12px;
+    padding: 5px 12px;
+    background: rgba(0, 217, 255, 0.1);
+    border-radius: 20px;
+}
+
+.course-card h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--text-light);
+    line-height: 1.4;
+}
+
+.course-type {
+    font-size: 12px;
+    color: var(--accent-warm);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid var(--glass-border);
+}
+
+/* CONTACT - Layer 7 */
+.contact-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.contact-item {
+    padding: 25px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+    background: rgba(0, 217, 255, 0.05);
+    border-color: var(--accent);
+    transform: translateY(-8px);
+}
+
+.contact-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+    margin-bottom: 10px;
+    display: block;
+}
+
+.contact-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-light);
+    word-break: break-all;
+}
+
+.contact-value a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.contact-value a:hover {
+    text-decoration: underline;
+}
+
+/* FOOTER - Layer 8 */
+footer {
+    background: var(--glass-bg);
+    border-top: 1px solid var(--glass-border);
+    padding: 50px 8%;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+footer p {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.social-link {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--accent);
+    transition: all 0.3s ease;
+    font-size: 18px;
+}
+
+.social-link:hover {
+    background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+    color: #0f172a;
+    transform: scale(1.2) translateY(-5px);
+}
+
+/* SCROLL ANIMATION */
+.scroll-element {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.scroll-element.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+    .theme-toggle {
+        top: 70px;
+        right: 10px;
+    }
+
+    nav {
+        padding: 15px 5%;
+    }
+
+    nav h1 {
+        font-size: 20px;
+    }
+
+    nav ul {
+        gap: 20px;
+        font-size: 11px;
+    }
+
+    .hero {
+        padding: 80px 5%;
+        gap: 40px;
+    }
+
+    .hero-text h2 {
+        font-size: 48px;
+    }
+
+    .hero-image img {
+        width: 280px;
+        height: 280px;
+    }
+
+    .glow-circle {
+        width: 310px;
+        height: 310px;
+    }
+
+    .section-title {
+        font-size: 36px;
+    }
+
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+
+    .education-grid,
+    .skills-grid,
+    .courses-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .course-filter {
+        flex-direction: column;
+    }
+
+    .filter-btn {
+        width: 100%;
+    }
+
+    section {
+        padding: 60px 5%;
+    }
+
+    footer {
+        padding: 30px 5%;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<!-- THEME TOGGLE BUTTON -->
+<div class="theme-toggle" onclick="toggleTheme()">
+    <span id="theme-icon">🌙</span>
+</div>
+
+<!-- ANIMATED BACKGROUND -->
+<div class="bg-animation">
+    <div class="floating-blob blob-1"></div>
+    <div class="floating-blob blob-2"></div>
+    <div class="floating-blob blob-3"></div>
+</div>
+
+<!-- NAVBAR - LAYER 1 -->
+<nav>
+    <h1>Gautam Jha</h1>
+    <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#courses">Courses</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- HERO SECTION - LAYER 2 -->
+<section class="hero">
+    <div class="hero-text scroll-element">
+        <h2>Gautam Jha</h2>
+        <h3>Law & Data Science</h3>
+        <p>
+            B.Sc. LL.B. (Data Science) at NLU Meghalaya. Merging legal reasoning with data-driven innovation to shape constitutional law, technology governance, and rights-based policy frameworks.
+        </p>
+        <button class="btn-primary">Download CV</button>
+    </div>
+
+    <div class="hero-image scroll-element">
+        <div class="glow-circle"></div>
+        <img src="profile.jpg" alt="Gautam Jha" />
+    </div>
+</section>
+
+<!-- ABOUT SECTION - LAYER 3 -->
+<section id="about">
+    <h2 class="section-title scroll-element">About Me</h2>
+    
+    <div class="about-content">
+        <div class="about-text scroll-element">
+            <p>
+                I am a dynamic law student pursuing B.Sc. LL.B. (Data Science) at National Law University Meghalaya. My academic journey blends rigorous legal scholarship with cutting-edge data analytics to tackle contemporary challenges.
+            </p>
+            <p>
+                My research interests span constitutional law, technology regulation, environmental governance, disability rights, and the transformative intersection of law and artificial intelligence. I believe data-driven legal research will reshape policy innovation.
+            </p>
+            <p>
+                Through moot court competitions, legal research, and coding projects, I am developing expertise that bridges traditional jurisprudence with modern computational methods to create impactful solutions.
+            </p>
+        </div>
+
+        <div class="about-stats scroll-element">
+            <div class="stat-card">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Courses Completed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">10+</div>
+                <div class="stat-label">Skills Mastered</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">Certifications</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2</div>
+                <div class="stat-label">Degrees</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- EDUCATION SECTION - LAYER 4 -->
+<section id="education">
+    <h2 class="section-title scroll-element">Education</h2>
+    
+    <div class="education-grid">
+        <div class="edu-card scroll-element">
+            <h3>National Law University Meghalaya</h3>
+            <p class="degree">B.Sc. LL.B. (Data Science)</p>
+            <p class="year">2023 – 2028</p>
+            <p style="font-size: 14px; color: var(--text-muted); margin-top: 15px;">Integrated program combining legal studies with specialized data science training and technology law focus.</p>
+        </div>
+
+        <div class="edu-card scroll-element">
+            <h3>Vidhyashram International School</h3>
+            <p class="degree">High School Education</p>
+            <p class="year">2016 – 2022</p>
+            <p style="font-size: 14px; color: var(--text-muted); margin-top: 15px;">Developed strong foundation in academics with emphasis on STEM and critical thinking skills.</p>
+        </div>
+    </div>
+</section>
+
+<!-- SKILLS SECTION - LAYER 5 -->
+<section id="skills">
+    <h2 class="section-title scroll-element">Skills & Expertise</h2>
+    
+    <div class="skills-grid">
+        <div class="skill-card scroll-element">
+            <div class="skill-icon">⚖️</div>
+            <h4>Legal Research & Analysis</h4>
+            <p style="font-size: 13px; color: var(--text-muted);">Constitutional law, case analysis, statutory interpretation</p>
+        </div>
+
+        <div class="skill-card scroll-element">
+            <div class="skill-icon">🎤</div>
+            <h4>Oral Advocacy</h4>
+            <p style="font-size: 13px; color: var(--text-muted);">Moot court, debate, persuasive communication</p>
+        </div>
+
+        <div class="skill-card scroll-element">
+            <div class="skill-icon">📜</div>
+            <h4>Drafting & Documentation</h4>
+            <p style="font-size: 13px; color: var(--text-muted);">Contracts, legal briefs, policy documents</p>
+        </div>
+
+        <div class="skill-card scroll-element">
+            <div class="skill-icon">🐍</div>
+            <h4>Python & Data Analysis</h4>
+            <p style="font-size: 13px; color: var(--text-muted);">Data science, visualization, statistical analysis</p>
+        </div>
+
+        <div class="skill-card scroll-element">
+            <div class="skill-icon">📊</div>
+            <h4>Microsoft Office Suite</h4>
+            <p style="font-size: 13px; color: var(--text-muted);">Excel, PowerPoint, advanced data management</p>
+        </div>
+
+        <div class="skill-card scroll-element">
+            <div class="skill-icon">⏰</div>
+            <h4>Project Management</h4>
+            <p style="font-size: 13px; color: var(--text-muted);">Organization, time management, leadership</p>
+        </div>
+    </div>
+</section>
+
+<!-- COURSES SECTION - LAYER 6 -->
+<section id="courses">
+    <h2 class="section-title scroll-element">Courses & Curriculum</h2>
+    
+    <div class="courses-container">
+        <div class="course-filter">
+            <button class="filter-btn active" onclick="filterCourses('all')">All Courses</button>
+            <button class="filter-btn" onclick="filterCourses('law')">Law</button>
+            <button class="filter-btn" onclick="filterCourses('data')">Data Science</button>
+            <button class="filter-btn" onclick="filterCourses('tech')">Technology</button>
+        </div>
+
+        <div class="courses-grid" id="courses-grid">
+            <!-- Courses will be populated here -->
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT SECTION - LAYER 7 -->
+<section id="contact">
+    <h2 class="section-title scroll-element">Get In Touch</h2>
+    
+    <div class="contact-container">
+        <div class="contact-info">
+            <div class="contact-item scroll-element">
+                <span class="contact-label">📧 Email</span>
+                <div class="contact-value">
+                    <a href="mailto:jhagautam147@gmail.com">jhagautam147@gmail.com</a>
+                </div>
+            </div>
+
+            <div class="contact-item scroll-element">
+                <span class="contact-label">📱 Phone</span>
+                <div class="contact-value">
+                    <a href="tel:+917357366104">+91 7357366104</a>
+                </div>
+            </div>
+
+            <div class="contact-item scroll-element">
+                <span class="contact-label">📍 Location</span>
+                <div class="contact-value">India</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER - LAYER 8 -->
+<footer>
+    <p>Crafted with innovation & precision</p>
+    
+    <div class="social-links">
+        <a href="#" class="social-link" title="LinkedIn">in</a>
+        <a href="#" class="social-link" title="GitHub">◆</a>
+        <a href="#" class="social-link" title="Twitter">𝕏</a>
+        <a href="#" class="social-link" title="Email">✉</a>
+    </div>
+
+    <p style="margin-top: 30px; font-size: 12px;">© 2026 Gautam Jha | All Rights Reserved</p>
+</footer>
+
+<!-- SCRIPTS -->
+<script>
+// THEME TOGGLE
+function toggleTheme() {
+    const body = document.body;
+    const icon = document.getElementById('theme-icon');
+    
+    body.classList.toggle('light-mode');
+    
+    if (body.classList.contains('light-mode')) {
+        icon.textContent = '☀️';
+        localStorage.setItem('theme', 'light');
+    } else {
+        icon.textContent = '🌙';
+        localStorage.setItem('theme', 'dark');
+    }
+}
+
+// Load theme preference
+window.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    const body = document.body;
+    const icon = document.getElementById('theme-icon');
+    
+    if (savedTheme === 'light') {
+        body.classList.add('light-mode');
+        icon.textContent = '☀️';
+    }
+});
+
+// COURSES DATA
+const coursesData = [
+    // Year 1
+    { name: 'Reading the Law', code: 'FC10001', type: 'law', year: 1 },
+    { name: 'Law and Language', code: 'FC10002', type: 'law', year: 1 },
+    { name: 'Basic Mathematics', code: 'FC10003', type: 'data', year: 1 },
+    { name: 'Introduction to Statistics', code: 'FC10004', type: 'data', year: 1 },
+    { name: 'Computational Thinking', code: 'FC10005', type: 'data', year: 1 },
+    { name: 'Basic Accounting', code: 'FC10006', type: 'law', year: 1 },
+    { name: 'Introduction of Economics', code: 'FC10007', type: 'law', year: 1 },
+    { name: 'Business Data Management', code: 'FC10008', type: 'data', year: 1 },
+    { name: 'Art of Communication', code: 'FC10009', type: 'law', year: 1 },
+    { name: 'Law of Torts', code: 'CL20001', type: 'law', year: 1 },
+    { name: 'Law of Contracts', code: 'CL20002', type: 'law', year: 1 },
+    { name: 'Constitutional Law I - Fundamental Rights and Basic Principles', code: 'CL20003', type: 'law', year: 1 },
+    { name: 'Foundations of Computer Programming', code: 'CS20001', type: 'tech', year: 1 },
+    { name: 'Computer Programming Lab', code: 'CS20002', type: 'tech', year: 1 },
+    
+    // Year 2
+    { name: 'Mathematics for Computer Science', code: 'CS20003', type: 'data', year: 2 },
+    { name: 'Social Entrepreneurship Incubation', code: 'SE', type: 'law', year: 2 },
+    { name: 'Advisory Support Course (2 credits Non-Taught Course)', code: 'ADV', type: 'law', year: 2 },
+    { name: 'Consumer Protection Act', code: 'CL20004', type: 'law', year: 2 },
+    { name: 'Special Contract', code: 'CL20005', type: 'law', year: 2 },
+    { name: 'Constitutional Law-II', code: 'CL20006', type: 'law', year: 2 },
+    { name: 'Object-Oriented Programming Concept', code: 'CS20004', type: 'tech', year: 2 },
+    { name: 'Linear Algebra for Machine Learning', code: 'CS20006', type: 'data', year: 2 },
+    { name: 'Data Structures for Data Science', code: 'CS20007', type: 'data', year: 2 },
+    { name: 'Data Structures Lab', code: 'CS20008', type: 'tech', year: 2 },
+    { name: 'Probability for Data Science', code: 'CS20009', type: 'data', year: 2 },
+    { name: 'Calculus for Data Science', code: 'CS20010', type: 'data', year: 2 },
+    { name: 'Jurisprudence & Legal Theory', code: 'CL30001', type: 'law', year: 2 },
+    { name: 'Family Law I', code: 'CL20008', type: 'law', year: 2 },
+    
+    // Year 3
+    { name: 'Transfer of Property Laws', code: 'CL20007', type: 'law', year: 3 },
+    { name: 'General Principles of Criminal Law and Defences', code: 'CL30002', type: 'law', year: 3 },
+    { name: 'Civil Procedure Code I', code: 'CL30003', type: 'law', year: 3 },
+    { name: 'Family Law II', code: 'CL20009', type: 'law', year: 3 },
+    { name: 'Algorithmic Thinking for Data Science', code: 'CS30001', type: 'data', year: 3 },
+    { name: 'Algorithmic Thinking Lab', code: 'CS30002', type: 'tech', year: 3 },
+    { name: 'Data Science Programming Lab', code: 'CS30003', type: 'tech', year: 3 },
+    { name: 'Statistics for Data Science', code: 'CS30004', type: 'data', year: 3 },
+    { name: 'Right to Information', code: 'OL40105', type: 'law', year: 3 },
+    { name: 'Environmental Law', code: 'CL30004', type: 'law', year: 3 },
+    { name: 'Civil Procedure Code II & Limitation', code: 'CL30005', type: 'law', year: 3 },
+    { name: 'Sports Law', code: 'OL40104', type: 'law', year: 3 },
+    { name: 'Disability Movement and Rights', code: 'OL40108', type: 'law', year: 3 },
+    { name: 'Optimization for Machine Learning', code: 'CS30005', type: 'data', year: 3 },
+    { name: 'Descriptive Statistics for Data Analysis', code: 'CS30006', type: 'data', year: 3 },
+    { name: 'UG Batch of 2028 – Sixth Trimester', code: 'SC30002', type: 'law', year: 3 },
+    { name: 'Operating Systems', code: 'DS40101', type: 'tech', year: 3 },
+    { name: 'Digital Logic', code: 'DS40103', type: 'tech', year: 3 },
+    { name: 'Offences under Penal Code', code: 'CL30006', type: 'law', year: 3 },
+    { name: 'Administrative Law', code: 'CL30007', type: 'law', year: 3 },
+    { name: 'Labour & Industrial Laws I', code: 'CL30008', type: 'law', year: 3 },
+    { name: 'Computer Networks', code: 'DS40102', type: 'tech', year: 3 },
+    { name: 'Introduction to International Criminal Law', code: 'OL40101', type: 'law', year: 3 },
+    { name: 'Database Systems for Data Science', code: 'CS30007', type: 'data', year: 3 },
+    { name: 'Database Systems Lab', code: 'CS30008', type: 'tech', year: 3 },
+    { name: 'Statistical Inference for Data Analysis', code: 'CS30009', type: 'data', year: 3 },
+    { name: 'Artificial Intelligence Fundamentals', code: 'CS30010', type: 'tech', year: 3 },
+    { name: 'Criminal Procedure Code I', code: 'CL30009', type: 'law', year: 3 },
+    { name: 'Law of Evidence', code: 'CL30010', type: 'law', year: 3 },
+    { name: 'Foundations of Machine Learning', code: 'CS30011', type: 'data', year: 3 },
+    { name: 'Machine Learning Lab', code: 'CS30012', type: 'tech', year: 3 },
+    { name: 'Software Development for Data Science', code: 'CS30013', type: 'data', year: 3 },
+    { name: 'Carriage Law', code: 'OL40111', type: 'law', year: 3 },
+    { name: 'Fundamental Rights and enforceability', code: 'OL40103', type: 'law', year: 3 },
+    { name: 'Computer Security', code: 'DS40107', type: 'tech', year: 3 },
+    { name: 'Company Law I', code: 'CI30014', type: 'law', year: 3 },
+    { name: 'Labour & Industrial Laws II', code: 'CL30012', type: 'law', year: 3 },
+    { name: 'Criminal Procedure Code II, Probation and Juvenile Justice', code: 'CL30011', type: 'law', year: 3 },
+    { name: 'Statistical Modelling for Data Analysis', code: 'CS30016', type: 'data', year: 3 },
+    { name: 'Data Visualization Lab', code: 'CS30015', type: 'tech', year: 3 },
+    { name: 'Data Visualization Techniques', code: 'CS30014', type: 'data', year: 3 },
+    { name: 'Seminar', code: 'SC30003', type: 'law', year: 3 },
+];
+
+// FILTER AND RENDER COURSES
+function filterCourses(category) {
+    const filteredCourses = category === 'all' ? coursesData : coursesData.filter(c => c.type === category);
+    renderCourses(filteredCourses);
+    
+    // Update active button
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+}
+
+function renderCourses(courses) {
+    const grid = document.getElementById('courses-grid');
+    grid.innerHTML = '';
+    
+    courses.forEach((course, index) => {
+        const card = document.createElement('div');
+        card.className = 'course-card scroll-element';
+        card.style.animationDelay = `${index * 0.05}s`;
+        
+        const typeLabel = course.type === 'law' ? '⚖️ Law' : course.type === 'data' ? '📊 Data Science' : '💻 Technology';
+        
+        card.innerHTML = `
+            <span class="course-code">${course.code}</span>
+            <h4>${course.name}</h4>
+            <span class="course-type">${typeLabel}</span>
+        `;
+        
+        grid.appendChild(card);
+    });
+    
+    // Re-observe new elements
+    document.querySelectorAll('.scroll-element').forEach(element => {
+        if (!element.classList.contains('active')) {
+            observer.observe(element);
+        }
+    });
+}
+
+// SCROLL ANIMATION
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.scroll-element').forEach(element => {
+    observer.observe(element);
+});
+
+// SMOOTH SCROLL
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href !== '#' && document.querySelector(href)) {
+            e.preventDefault();
+            document.querySelector(href).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Initial render
+renderCourses(coursesData);
+</script>
+
+</body>
+</html>
